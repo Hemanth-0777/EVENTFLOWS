@@ -36,14 +36,14 @@
   <script>
     // Redirect to login.html if not authenticated
     if (sessionStorage.getItem("isAdmin") !== "true") {
-      window.location.href = "login.html";
+      window.location.href = "login1.html";
     }
     function toggleMenu() {
       document.getElementById('navLinks').classList.toggle('show');
     }
     function logout() {
       sessionStorage.removeItem("isAdmin");
-      window.location.href = "login.html";
+      window.location.href = "login1.html";
     }
   </script>
 

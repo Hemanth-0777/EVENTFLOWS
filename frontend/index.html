@@ -6,6 +6,61 @@
   <title>EventFlow • Dashboard</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Mobile responsive tweaks */
+    .topnav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+    }
+    .topnav-links {
+      display: flex;
+      gap: 1rem;
+    }
+    .topnav-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .topnav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+      .topnav-links.show { display: flex; }
+      .main-grid { display: block; padding: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .btn { width: 100%; margin-bottom: 0.5rem; }
+      h2 { font-size: 1.2rem; }
+      .brand-name { font-size: 1rem; }
+    }
+
+    .event-item {
+      border: 1px solid #ddd;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      border-radius: 6px;
+      background: #fafafa;
+    }
+    .event-item h3 { margin: 0 0 0.25rem 0; }
+    .event-item p { margin: 0 0 0.5rem 0; color: #555; }
+  </style>
 </head>
 <body>
   <header class="topnav">
@@ -14,11 +69,9 @@
       <span class="brand-name">EventFlow</span>
     </div>
 
-    <button class="nav-toggle" type="button" aria-label="Toggle navigation">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="toggleNav()">☰</button>
 
-    <nav class="topnav-links" data-nav>
+    <nav class="topnav-links" id="navLinks">
       <a href="index.html">Dashboard</a>
       <a href="events.html">All Events</a>
       <a href="teams.html">Teams</a>
@@ -110,12 +163,15 @@
   </footer>
 
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="script.js"></script>
   <script>
     lucide.createIcons();
 
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('show');
+    }
+
     // Example upcoming events data
-    const upcomingEvents = [
+    let upcomingEvents = [
       { id: 1, title: "Hackathon Kickoff", date: "Aug 5, 2026" },
       { id: 2, title: "Team Workshop", date: "Aug 10, 2026" },
       { id: 3, title: "Final Presentations", date: "Aug 20, 2026" }
@@ -137,11 +193,8 @@
     }
 
     function deleteEvent(id) {
-      const index = upcomingEvents.findIndex(e => e.id === id);
-      if (index !== -1) {
-        upcomingEvents.splice(index, 1); // remove from array
-        renderEvents(); // re-render list
-      }
+      upcomingEvents = upcomingEvents.filter(e => e.id !== id);
+      renderEvents();
     }
 
     // Initial render

@@ -6,6 +6,51 @@
   <title>Create Event • EventFlow</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Mobile responsive tweaks */
+    .topnav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+    }
+    .topnav-links {
+      display: flex;
+      gap: 1rem;
+    }
+    .topnav-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .topnav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+      .topnav-links.show { display: flex; }
+      .main-grid { display: block; padding: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .btn { width: 100%; margin-bottom: 0.5rem; }
+      h2 { font-size: 1.2rem; }
+      .brand-name { font-size: 1rem; }
+    }
+  </style>
 </head>
 <body>
   <header class="topnav">
@@ -13,16 +58,18 @@
       <span class="brand-icon">🚀</span>
       <span class="brand-name">EventFlow</span>
     </div>
-    <nav class="topnav-links">
+
+    <button class="nav-toggle" onclick="toggleNav()">☰</button>
+
+    <nav class="topnav-links" id="navLinks">
       <a href="index.html">Dashboard</a>
       <a href="events.html">All Events</a>
       <a href="teams.html">Teams</a>
       <a href="admin.html">Admin</a>
     </nav>
+
     <div class="topnav-actions">
-      <button class="btn btn-secondary" onclick="window.location.href='index.html'">
-        ← Back
-      </button>
+      <button class="btn btn-secondary" onclick="window.location.href='index.html'">← Back</button>
     </div>
   </header>
 
@@ -53,22 +100,36 @@
       </form>
     </section>
   </main>
+
   <footer class="site-footer">
-  <div class="footer-content">
-    <p>Thanks for using EventFlow — stay connected!</p>
-    <div class="social-links">
-      <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
-      <a href="#" aria-label="GitHub"><i data-lucide="github"></i></a>
-      <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+    <div class="footer-content">
+      <p>Thanks for using EventFlow — stay connected!</p>
+      <div class="social-links">
+        <a href="https://twitter.com" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+        <a href="https://github.com/Hemanth-0777/EVENTFLOWS" aria-label="GitHub"><i data-lucide="github"></i></a>
+        <a href="https://linkedin.com" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+      </div>
     </div>
-  </div>
+    <p class="footer-note">© 2026 EventFlow. Built with ❤️.</p>
+  </footer>
 
-  <p class="footer-note">© 2026 EventFlow. Built with ❤️.</p>
-</footer>
-<script src="https://unpkg.com/lucide@latest"></script>
-<script>lucide.createIcons();</script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
 
-  <script src="script.js"></script>
-  <script>lucide.createIcons();</script>
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('show');
+    }
+
+    // Example save handler
+    document.getElementById('create-event-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const title = document.getElementById('event-name').value;
+      const date = document.getElementById('event-date').value;
+      const desc = document.getElementById('event-desc').value;
+      alert(`Event saved:\n${title}\n${date}\n${desc}`);
+      // Here you could push to localStorage or backend
+    });
+  </script>
 </body>
 </html>

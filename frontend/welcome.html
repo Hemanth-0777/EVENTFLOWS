@@ -8,29 +8,64 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* Mobile responsive tweaks */
+    /* Neon Dark Theme */
+    :root {
+      --bg-dark: #050505;
+      --neon-blue: #00f2ff;
+      --neon-purple: #7000ff;
+      --flame: #ff4d00;
+      --text-light: #e0e0e0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Top navigation */
     .topnav {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 0.75rem 1rem;
-      background: #f5f5f5;
-      border-bottom: 1px solid #ddd;
+      background: var(--bg-dark);
+      border-bottom: 1px solid var(--neon-blue);
+      color: var(--text-light);
     }
-    .topnav-links {
-      display: flex;
-      gap: 1rem;
+    .topnav-links a {
+      color: var(--neon-blue);
+      text-decoration: none;
+      margin-right: 1rem;
     }
-    .topnav-actions {
-      display: flex;
-      gap: 0.5rem;
+    .topnav-links a:hover {
+      color: var(--flame);
     }
+
+    .topnav-actions .btn {
+      border: 2px solid var(--neon-blue);
+      background: transparent;
+      color: var(--neon-blue);
+      transition: 0.3s;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .topnav-actions .btn:hover {
+      background: var(--neon-blue);
+      color: #000;
+      box-shadow: 0 0 15px var(--neon-blue);
+    }
+
     .nav-toggle {
       display: none;
       background: none;
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
+      color: var(--neon-blue);
     }
 
     @media (max-width: 768px) {
@@ -51,15 +86,63 @@
       .brand-name { font-size: 1rem; }
     }
 
+    /* Event cards */
     .event-item {
-      border: 1px solid #ddd;
+      border: 1px solid var(--neon-purple);
       padding: 1rem;
       margin-bottom: 0.75rem;
       border-radius: 6px;
-      background: #fafafa;
+      background: #111;
+      color: var(--text-light);
     }
-    .event-item h3 { margin: 0 0 0.25rem 0; }
-    .event-item p { margin: 0 0 0.5rem 0; color: #555; }
+    .event-item h3 { margin: 0 0 0.25rem 0; color: var(--neon-blue); }
+    .event-item p { margin: 0 0 0.5rem 0; color: #aaa; }
+
+    /* Live cards */
+    .live-card {
+      background: #111;
+      border: 1px solid var(--neon-purple);
+      border-radius: 6px;
+      overflow: hidden;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+    .live-card h3 { color: var(--neon-blue); }
+    .live-card p { color: #aaa; }
+    .tag.live {
+      background: var(--flame);
+      color: #000;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    /* Section headers */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .section-header h2 {
+      color: var(--neon-blue);
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      border-top: 1px solid var(--neon-purple);
+      text-align: center;
+      padding: 1rem;
+    }
+    .site-footer a {
+      color: var(--neon-blue);
+      margin: 0 0.5rem;
+    }
+    .site-footer a:hover {
+      color: var(--flame);
+    }
   </style>
 </head>
 <body>
@@ -81,8 +164,7 @@
 
     <div class="topnav-actions">
       <button class="btn btn-secondary" onclick="window.location.href='welcome.html'">← Back</button>
-      <button class="btn btn-logout" onclick="window.location.href='index.html'"
-        style="background: rgba(255, 75, 75, 0.15); color: #ff4b4b; border: 1px solid rgba(255, 75, 75, 0.3);">Logout</button>
+      <button class="btn btn-logout" onclick="window.location.href='index.html'">Logout</button>
     </div>
   </header>
 
@@ -107,6 +189,7 @@
               data-img="https://slidemodel.com/wp-content/uploads/21975-01-hackathon-diagram-powerpoint-template-16x9-1.jpg">View</button>
             <span class="tag live">LIVE</span>
           </div>
+        </div>
         
         <!-- Card 2 -->
         <div class="live-card">
@@ -143,61 +226,3 @@
       <div class="section-header">
         <h2>Upcoming Schedules</h2>
         <button class="btn btn-secondary" onclick="window.location.href='events.html'">See All</button>
-      </div>
-      <div id="event-list" class="event-list"></div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p>Thanks for using EventFlow — stay connected!</p>
-      <div class="social-links">
-        <a href="https://twitter.com" aria-label="Twitter"><i data-lucide="twitter"></i></a>
-        <a href="https://github.com/Hemanth-0777/EVENTFLOWS" aria-label="GitHub"><i data-lucide="github"></i></a>
-        <a href="https://linkedin.com" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
-      </div>
-    </div>
-    <p class="footer-note">© 2026 EventFlow. Built with ❤️.</p>
-  </footer>
-
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    lucide.createIcons();
-
-    function toggleNav() {
-      document.getElementById('navLinks').classList.toggle('show');
-    }
-
-    // Example upcoming events data
-    let upcomingEvents = [
-      { id: 1, title: "Hackathon Kickoff", date: "Aug 5, 2026" },
-      { id: 2, title: "Team Workshop", date: "Aug 10, 2026" },
-      { id: 3, title: "Final Presentations", date: "Aug 20, 2026" }
-    ];
-
-    function renderEvents() {
-      const list = document.getElementById("event-list");
-      list.innerHTML = ""; // clear existing
-      upcomingEvents.forEach(event => {
-        const item = document.createElement("div");
-        item.className = "event-item";
-        item.innerHTML = `
-          <h3>${event.title}</h3>
-          <p>${event.date}</p>
-          <button class="btn btn-secondary" onclick="deleteEvent(${event.id})">Delete</button>
-        `;
-        list.appendChild(item);
-      });
-    }
-
-    function deleteEvent(id) {
-      upcomingEvents = upcomingEvents.filter(e => e.id !== id);
-      renderEvents();
-    }
-
-    // Initial render
-    renderEvents();
-  </script>
-</body>
-</html>
